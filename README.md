@@ -1,7 +1,9 @@
-=Ruby Boggle Solver=
+Ruby Boggle Solver
+==================
 A simple algorithm to locate 3+ letter words in a matrix of letters.
 
-==Usage==
+Usage
+-----
 ```
 $ ruby bogglesnake.rb
 ```
