@@ -185,26 +185,35 @@ end
 time = ''
 start = Time.now
 
-rows = 4
-cols = 4
+rows = 5
+cols = 5
 
 b = Board.new rows, cols
 b.set [0,0],'a'
-b.set [0,1],'r'
-b.set [0,2],'i'
-b.set [0,3],'g'
-b.set [1,0],'t'
+b.set [0,1],'b'
+b.set [0,2],'r'
+b.set [0,3],'a'
+b.set [0,4],'b'
+b.set [1,0],'b'
 b.set [1,1],'s'
-b.set [1,2],'t'
-b.set [1,3],'f'
+b.set [1,2],'e'
+b.set [1,3],'w'
+b.set [1,4],'d'
 b.set [2,0],'e'
 b.set [2,1],'l'
 b.set [2,2],'e'
-b.set [2,3],'g'
-b.set [3,0],'t'
-b.set [3,1],'f'
-b.set [3,2],'r'
-b.set [3,3],'n'
+b.set [2,3],'p'
+b.set [2,4],'g'
+b.set [3,0],'b'
+b.set [3,1],'g'
+b.set [3,2],'t'
+b.set [3,3],'s'
+b.set [3,4],'g'
+b.set [4,0],'a'
+b.set [4,1],'m'
+b.set [4,2],'k'
+b.set [4,3],'s'
+b.set [4,4],'u'
 
 b.initDictionary "words"
 
