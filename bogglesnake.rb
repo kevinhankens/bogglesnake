@@ -114,7 +114,16 @@ class Snake
       [-1, 1]
     ]
     @paths = []
-    @words = []
+    @words = {}
+  end
+
+  def sorted
+    sorted = {}
+    unsorted = self.words
+    unsorted.keys.sort.each do |key|
+      sorted[key] = unsorted[key];
+    end
+    sorted
   end
 
   # Searches the board for words.
@@ -141,7 +150,8 @@ class Snake
       
       # Keep the word if it is long enough and is a legal word that hasn't already been added. 
       if (word.length >= @board.minword && @board.dict[letter] && @board.dict[letter][word] && !@words.include?(word)) then
-        @words.push word
+        p = newPath.map {|coords| coords.join('-')}
+        @words[word] = p.join(',')
       end
 
       # There is at least one more legal move, so recurse if the word if it is too

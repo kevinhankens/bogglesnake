@@ -1,4 +1,31 @@
+var bogglesnake = {
+  'bgColor' : '#fff',
+  'fontColor' : '#000',
+  'setup' : function() {
+    this.bgColor = $('.letterinput').css('backgroundColor');
+    this.fontColor = $('.letterinput').css('color');
+    this.bindHover();
+  },
+  'bindHover' : function() {
+    $('.word').mouseover(function() {
+      var pathString = $(this).data('path');
+      var pathList = pathString.split(',');
+      for (var i = 0; i < pathList.length; i++) {
+        $(this).css({'color' : '#fff', 'backgroundColor' : '#369'})
+        $('#input-' + pathList[i]).css({'color' : '#fff', 'backgroundColor' : '#369'});
+      }
+    });
+
+    $('.word').mouseout(function() {
+      $(this).css({'color' : bogglesnake.fontColor, 'backgroundColor' : bogglesnake.bgColor})
+      $('.letterinput').css({'color' : bogglesnake.fontColor, 'backgroundColor' : bogglesnake.bgColor});
+    });
+  }
+}
+
 $(document).ready(function() {
+
+  bogglesnake.setup();
 
   $('.letterinput').blur(function() {
     var values = new Array(5);
@@ -20,8 +47,8 @@ $(document).ready(function() {
       'dataType' : 'json',
       'data' : {'values' : values},
       'success' : function(data, status, xhr) {
-        console.log(data);
-        $('.words').html(data.join(' '));
+        $('#words').html(data.words);
+        bogglesnake.bindHover();
       }
     });
   });

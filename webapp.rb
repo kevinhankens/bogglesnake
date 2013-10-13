@@ -10,8 +10,8 @@ set :port, '4000'
 # Route.
 get '/submit' do
 
-  rows = 5
-  cols = 5
+  rows = 4
+  cols = 4
 
   b = Board.new rows, cols
 
@@ -31,7 +31,9 @@ get '/submit' do
     s = Snake.new b
     s.search
 
-    s.words.to_json
+    words = haml :words, :locals => {:wordlist => s.sorted}
+
+    {"words" => words}.to_json
   end
 
 end
@@ -41,13 +43,11 @@ get '/' do
   time = ''
   start = Time.now
 
-  rows = 5
-  cols = 5
+  rows = 4
+  cols = 4
 
   b = Board.new rows, cols
 
-  pp params
-  
   if !params['input'].nil?
     params['input'].each do |row, cols|
       cols.each do |col, value|
@@ -59,27 +59,27 @@ get '/' do
     b.set [0,1],'b'
     b.set [0,2],'r'
     b.set [0,3],'a'
-    b.set [0,4],'b'
+    #b.set [0,4],'b'
     b.set [1,0],'b'
     b.set [1,1],'s'
     b.set [1,2],'e'
     b.set [1,3],'w'
-    b.set [1,4],'d'
+    #b.set [1,4],'d'
     b.set [2,0],'e'
     b.set [2,1],'l'
     b.set [2,2],'e'
     b.set [2,3],'p'
-    b.set [2,4],'g'
+    #b.set [2,4],'g'
     b.set [3,0],'b'
     b.set [3,1],'g'
     b.set [3,2],'t'
     b.set [3,3],'s'
-    b.set [3,4],'g'
-    b.set [4,0],'a'
-    b.set [4,1],'m'
-    b.set [4,2],'k'
-    b.set [4,3],'s'
-    b.set [4,4],'u'
+    #b.set [3,4],'g'
+    #b.set [4,0],'a'
+    #b.set [4,1],'m'
+    #b.set [4,2],'k'
+    #b.set [4,3],'s'
+    #b.set [4,4],'u'
   end
   
   inittime = Time.now - start
@@ -99,6 +99,8 @@ get '/' do
   #pp st
   #pp s
   #pp b.to_html
+
+  words = haml :words, :locals => {:wordlist => s.sorted}
   
-  haml :index, :locals => {:rows => b.rows, :cols => b.cols, :board => b.board, :words => s.words}
+  haml :index, :locals => {:rows => b.rows, :cols => b.cols, :board => b.board, :words => words}
 end
