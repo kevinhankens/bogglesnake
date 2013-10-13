@@ -17,6 +17,7 @@ get '/submit' do
 
   words = []
 
+  # Process the user input.
   if !params['values'].nil?
     params['values'].each do |row, cols|
       col = 0;
@@ -40,9 +41,6 @@ end
 
 # Route.
 get '/' do
-  time = ''
-  start = Time.now
-
   rows = 4
   cols = 4
 
@@ -55,51 +53,30 @@ get '/' do
       end
     end
   else
+    # Default values.
     b.set [0,0],'r'
     b.set [0,1],'s'
     b.set [0,2],'t'
     b.set [0,3],'u'
-    #b.set [0,4],'b'
     b.set [1,0],'b'
     b.set [1,1],'o'
     b.set [1,2],'e'
     b.set [1,3],'d'
-    #b.set [1,4],'d'
     b.set [2,0],'g'
     b.set [2,1],'g'
     b.set [2,2],'e'
     b.set [2,3],'i'
-    #b.set [2,4],'g'
     b.set [3,0],'e'
     b.set [3,1],'l'
     b.set [3,2],'t'
     b.set [3,3],'o'
-    #b.set [3,4],'g'
-    #b.set [4,0],'a'
-    #b.set [4,1],'m'
-    #b.set [4,2],'k'
-    #b.set [4,3],'s'
-    #b.set [4,4],'u'
   end
   
-  inittime = Time.now - start
-  time += "dictionary loaded " + inittime.to_s + "\n"
   b.initDictionary "words"
   
   s = Snake.new b
   s.search
   
-  searchtime = Time.now - start
-  time += "search completed " + searchtime.to_s + "\n"
-  
-  # Debugging.
-  #pp s.words
-  #pp b.roots
-  #pp b.dict
-  #pp st
-  #pp s
-  #pp b.to_html
-
   words = haml :words, :locals => {:wordlist => s.sorted}
   
   haml :index, :locals => {:rows => b.rows, :cols => b.cols, :board => b.board, :words => words}
