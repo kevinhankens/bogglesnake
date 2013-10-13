@@ -1,0 +1,24 @@
+!!!  
+%html  
+  %head  
+    %title BoggleSnake!
+    %link{:rel=>"stylesheet", :href=>"css/bootstrap.css"}
+    %link{:rel=>"stylesheet", :href=>"css/bootstrap-responsive.css"}
+    %link{:rel=>"stylesheet", :href=>"css/custom.css"}
+    %script{:type=>"text/javascript", :src=>"js/jquery.js"}
+    %script{:type=>"text/javascript", :src=>"js/custom.js"}
+  %body  
+    %h1 Boggle Snake
+    %form
+      %table
+        %tbody
+          - for row in 0..(locals[:rows] - 1)
+            %tr
+              - for col in 0..(locals[:cols] - 1)
+                %td
+                  - val = locals[:board][row][col]
+                  %input{:type => 'text', :name=>"input[#{row}][#{col}]", "data-row"=>"#{row}", "data-col"=>"#{col}", :size=>1, :maxlength=>1, :class=>'letterinput', :value=>"#{val}"}
+      %input{:type => 'submit', :value => 'Submit', :class => 'btn btn-default'}
+    %div{:class => "words"}
+      = locals[:words].join(' ')
+      
