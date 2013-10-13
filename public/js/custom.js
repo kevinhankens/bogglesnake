@@ -5,6 +5,9 @@ var bogglesnake = {
     this.bgColor = $('.letterinput').css('backgroundColor');
     this.fontColor = $('.letterinput').css('color');
     this.bindHover();
+    $('.letterinput').click(function() {
+      $(this).select();
+    });
   },
   'bindHover' : function() {
     $('.word').mouseover(function() {
@@ -27,7 +30,7 @@ $(document).ready(function() {
 
   bogglesnake.setup();
 
-  $('.letterinput').blur(function() {
+  $('.letterinput').bind('change keyup input', function() {
     var values = new Array(5);
     for (var i = 0; i < 5; i++) {
       values[i] = new Array(5);
@@ -38,7 +41,7 @@ $(document).ready(function() {
       var row = element.data('row');
       var col = element.data('col');
       var value = element.val();
-      values[row][col] = value;
+      values[row][col] = value.toLowerCase();
     });
 
     $.ajax({
